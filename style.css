@@ -1,0 +1,18 @@
+.container{
+	width: 50%;
+	margin: auto;
+	padding: 20px;
+	background-color: white;		
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	margin-left: 30px;
+}
+
+body {
+	background-color: white;
+}

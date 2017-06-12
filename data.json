@@ -1,0 +1,18 @@
+[
+	{ "id": "1",
+	  "task": "cueillir des pommes",
+	  "progress": "todo"
+	},
+	{ "id": "2",
+	  "task": "cueillir des poires",
+	  "progress": "done"
+	},
+	{ "id": "3",
+	  "task": "cueillir des peche",
+	  "progress": "todo"
+	},
+	{ "id": "4",
+	  "task": "cueillir des oignons",
+	  "progress": "done"
+	}
+]
