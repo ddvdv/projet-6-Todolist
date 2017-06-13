@@ -76,20 +76,19 @@
 	}
 
 	// Transformer les array de liste en HTML selon le type
-	function lister($list, $progress) {
+	function lister($list, $type) {
 		$listHtml = '';
-		if ($progress == "done"){
-			// S'il s'agit de la liste exécutée
-			foreach ($list as $key => $value) {
-				$item = "<li>" . $value['task'] . "</li>";
-				$listHtml = $listHtml .	 $item;
+		$checked = '';
+		// Vérifier si les boites sont à checker ou pas
+	 	foreach ($list as $key => $value) {
+	 		if ($type == 'done'){
+				$checked = 'checked';
 			}
+			$item = "<li><div class='box-item'><label for='".$value['id']."'><input name='".$value['id']."'type='checkbox' id='" . $value['id'] . "' value='checked'". $checked ."> " . $value['task'] . "</label></div></li> ";
+			$listHtml = $listHtml .	 $item;
+			$checked = '';
 		}
-		else {
-			foreach ($list as $key => $value) {
-				$item = "<li> <label for='".$value['id']."'><input name='".$value['id']."'type='checkbox' id='" . $value['id'] . "' value='checked'> " . $value['task'] . "</label></li> ";
-				$listHtml = $listHtml .	 $item;
-			}
-		}
+			// }
+		// }
 		return "<ul>" . $listHtml . "</ul>";
 	}
