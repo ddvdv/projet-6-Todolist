@@ -1,1 +1,1 @@
-[{"id":1,"task":"cueillir des pommes","progress":"todo"},{"id":2,"task":"cueillir des poires","progress":"todo"},{"id":3,"task":"cueillir des bananes","progress":"todo"},{"id":4,"task":"faire une compote","progress":"todo"}]
+[{"id":3,"task":"peche","progress":"todo"},{"id":2,"task":"banane","progress":"done"},{"id":1,"task":"pommes","progress":"done"},{"id":4,"task":"banane","progress":"done"}]

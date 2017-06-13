@@ -5,8 +5,10 @@
 		global $done;
 		$toDo = [];
 		$done = [];
+		// Récupération du fichier
 		$myTasksJson = file_get_contents($file);
 		$myTasksArray = json_decode($myTasksJson, true);
+		// Boucle de tri selon liste "à faire" ou "done"
 		foreach ($myTasksArray as $key => $value) {
 			if ($value['progress'] == "todo"){
 				array_push($toDo, $value);
@@ -88,7 +90,5 @@
 			$listHtml = $listHtml .	 $item;
 			$checked = '';
 		}
-			// }
-		// }
 		return "<ul>" . $listHtml . "</ul>";
 	}
