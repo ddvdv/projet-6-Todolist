@@ -7,6 +7,7 @@ require 'functions.php';
 <head>
 	<title></title>
 	<meta charset="utf-8">
+ 	<link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -28,7 +29,12 @@ require 'functions.php';
 		?>
 </h3>
 		<div class="container">
-			<h1>My To Do List</h1>
+			<div class="header">
+				<h1>My To Do List</h1>
+				<div id="icone" >
+					<img src="ico.png" alt="icone">
+				</div>
+			</div>
 			<div class="row">
 			<h2>A faire</h2>
 				<form method="post">
@@ -37,11 +43,6 @@ require 'functions.php';
 				?>
 					<input type="submit" name="done" value="done">
 				</form>
-
-			<h2>Archive</h2>
-				<?php
-					echo(lister($done, 'done'));
-				?>
 			</div>
 
 			<div class="row">
@@ -52,6 +53,15 @@ require 'functions.php';
 					<input type="submit" name="ajout" value="ajout">
 				</form>
 			</div>
+
+			<div class="row">
+			<h2>Archive</h2>
+				<?php
+					echo(lister($done, 'done'));
+				?>
+			</div>
+
+
 		</div>
 
 

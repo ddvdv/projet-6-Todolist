@@ -21,21 +21,34 @@
 	function modifier($type){
 		global $toDo;
 		global $done;
+		global $idArray;
+		global $lastId;
+		$idArray = [];
+		$lastId;
+		// Update suite à un ajout
 		if($type == 'ajout'){
+			// Déterminer quel est le dernier ID toutes categ confondues
+			$myTasksArray = array_merge($toDo, $done);
+			foreach ($myTasksArray as $key => $value) {
+				array_push($idArray, $value['id']);
+				$lastId = max($idArray);
+			}
+			// Push de la tâche à réaliser dans la liste ToDo
 			$aRealise = $_POST['tacheAjout'];
-			$rank = count($toDo)+1;
+			$rank = $lastId + 1;
 			$toAdd = ['id'=>$rank,
 					  'task'=>$aRealise,
 					  'progress'=>'todo'];
 			array_push($toDo, $toAdd);
-		}
+		} // Update suite à une tache réalisée
 		elseif($type == 'done'){
-			// Parcourrir le POST pour identifier la tâche réalisée
+			// Parcourir le POST pour identifier la tâche réalisée
 			foreach ($_POST as $keyPost => $valuePost) {
 			 	if($valuePost == 'checked'){
-			 		// La supprimer de la liste à faire et l'ajouter à la listée réalisée
+			 		// La supprimer de la liste à faire et l'ajouter à la listée des tâches déjà faites
 					foreach ($toDo as $keyItem => $valueItem) {
 						if($keyPost == $valueItem['id']){
+							$valueItem['progress'] = "done";
 							array_push($done, $valueItem);
 							array_splice($toDo, $keyItem, 1);
 						}
@@ -53,15 +66,13 @@
 		global $done;
 		$listToUpdate = [];
 		foreach($toDo as $key => $value) {
-			$listToUpdate[$value] = "todo";
+			array_push($listToUpdate, $value);
 		}
 		foreach($done as $key => $value) {
-			$listToUpdate[$value] = "done";
+			array_push($listToUpdate, $value);
 		}
 		$jsonUpdate = json_encode($listToUpdate);
-		print_r($listToUpdate);
 		file_put_contents('data.json', $jsonUpdate);
-		echo($jsonUpdate);
 	}
 
 	// Transformer les array de liste en HTML selon le type
@@ -76,7 +87,7 @@
 		}
 		else {
 			foreach ($list as $key => $value) {
-				$item = "<li><input type='checkbox' name='" . $value['id'] . "' value='checked'>" . $value['task'] . "</li> ";
+				$item = "<li> <label for='".$value['id']."'><input name='".$value['id']."'type='checkbox' id='" . $value['id'] . "' value='checked'> " . $value['task'] . "</label></li> ";
 				$listHtml = $listHtml .	 $item;
 			}
 		}
