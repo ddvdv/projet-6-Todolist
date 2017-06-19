@@ -14,7 +14,7 @@ function lister($type) {
 		$checked = '';
 		}
 	}
-	return "<ul>" . $listHtml . "</ul>";
+	return "<ul id='toDrag'>" . $listHtml . "</ul>";
 }
 ?>
 
