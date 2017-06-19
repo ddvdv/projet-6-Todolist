@@ -7,10 +7,12 @@ catch (Exception $e){
 	die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $dbb->query('SELECT * FROM userList WHERE id = 2;');
+$reponse = $dbb->prepare('SELECT * FROM userList WHERE firstname = ?;');
+
+$reponse->execute(array('Tintin'));
 
 while ($donnee = $reponse->fetch()){
-	echo("Le personnage que j'ai sélectionné est " . $donnee['firstname']);
+	echo("Le nom du personnage que j'ai sélectionné est " . $donnee['lastname']);
 }
 
 ?>
