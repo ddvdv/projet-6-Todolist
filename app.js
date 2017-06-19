@@ -56,7 +56,7 @@ function addDnDHandlers(elem) {
   elem.addEventListener('drop', handleDrop, false);
   elem.addEventListener('dragend', handleDragEnd, false);
 }
-var cols = document.querySelectorAll('#toDrag .box-item');
+var cols = document.querySelectorAll('#toDrag li');
 [].forEach.call(cols, addDnDHandlers);
 
 ///////////////////AJAX

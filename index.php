@@ -9,7 +9,7 @@ function lister($type) {
  			$checked = "checked";
  		}
  		if ($value['progress'] == $type){
-		$item = "<li><div class='box-item'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ."> " . $value['task'] . "</label></div></li> ";
+		$item = "<li draggable='true' ><div  class='box-item'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ."> " . $value['task'] . "</label></div></li> ";
 		$listHtml = $listHtml .	 $item;
 		$checked = '';
 		}
