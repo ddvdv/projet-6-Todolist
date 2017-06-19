@@ -12,8 +12,25 @@ require 'functions.php';
 	</head>
 <body>
 		<?php
+
+		$toDo = [];
+		$done = [];
+
+		try {
+			$dbb = new PDO('mysql:host=localhost;dbname=todolist;charset=utf8', 'root', 'root');
+		}
+		catch (Exception $e){
+			die('Erreur : ' . $e->getMessage());
+		}
+		$req = $dbb->query('SELECT * FROM todos');
+
+		while ($donnee = $req->fetch()){
+			array_push($toDo,$donnee);
+		}
+
+
 		// Récupérer le fichier
-		fileGetter("data.json");
+		//fileGetter("data.json");
 
 		// S'il y a une tâche à ajouter
 		if(isset($_POST['ajout'])){

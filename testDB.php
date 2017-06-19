@@ -1,19 +1,23 @@
 <?php
 
-try {
-	$dbb = new PDO('mysql:host=localhost;dbname=monTest;charset=utf8', 'root', 'root');
-}
-catch (Exception $e){
-	die('Erreur : ' . $e->getMessage());
-}
+		$toDo = [];
+		$done = [];
 
-$reponse = $dbb->prepare('SELECT * FROM userList WHERE firstname = ?;');
+		try {
+			$dbb = new PDO('mysql:host=localhost;dbname=todolist;charset=utf8', 'root', 'root');
+		}
+		catch (Exception $e){
+			die('Erreur : ' . $e->getMessage());
+		}
+		$req = $dbb->query('SELECT * FROM todos');
 
-$reponse->execute(array('Tintin'));
+		while ($donnee = $req->fetch()){
+			array_push($toDo,$donnee);
+		}
 
-while ($donnee = $reponse->fetch()){
-	echo("Le nom du personnage que j'ai sélectionné est " . $donnee['lastname']);
-}
+			echo'<pre>';
+		print_r($toDo);
+			echo'</pre>';
 
 ?>
 
