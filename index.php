@@ -9,7 +9,7 @@ function lister($type) {
  			$checked = "checked";
  		}
  		if ($value['progress'] == $type){
-		$item = "<li draggable='true' ><div  class='box-item'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ."> " . $value['task'] . "</label></div></li> ";
+		$item = "<li draggable='true' ><div  class='box-item'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ." onchange='handleCheckbox(this);'> " . $value['task'] . "</label></div></li> ";
 		$listHtml = $listHtml .	 $item;
 		$checked = '';
 		}
@@ -63,7 +63,7 @@ function lister($type) {
 			<h1>My To Do List</h1>
 			<div class="row">
 			<h2>A faire</h2>
-				<form method="post">
+				<form id='toDoForm' method="post">
 					<?php
 					echo(lister('todo'));
 					?>
@@ -82,7 +82,7 @@ function lister($type) {
 
 			<div class="row">
 			<h2>Archive</h2>
-				<form method='post' class="crossed">
+				<form id='doneForm' method='post' class="crossed">
 				<?php
 				echo(lister('done'));
 				?>
