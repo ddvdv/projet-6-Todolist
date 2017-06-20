@@ -79,3 +79,15 @@ html {
     margin: 0px;
     padding: 0px;
 }
+
+.tomorrow {
+	background-color: rgba(226, 88, 88, 0.5);
+}
+
+.urgent {
+	background-color: rgba(226, 45, 45, 0.7);
+}
+
+.late {
+	background-color: rgba(239, 4, 4, 0.9);
+}

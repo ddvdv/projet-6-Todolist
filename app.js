@@ -64,13 +64,22 @@
 // Déplacement de la tâche en done en JS
 function handleCheckbox(checkbox){
   // Modification du DOM
-   $num = checkbox.id;
-   $taskElt = document.getElementById($num);
-   $doneList = document.getElementById('doneForm').firstElementChild;
-   if(checkbox.checked == true){
+  $num = checkbox.id;
+  $taskElt = document.getElementById($num);
+  $doneList = document.getElementById('doneForm').firstElementChild;
+  if(checkbox.checked == true){
       $parentElmt = checkbox.parentNode.parentNode.parentNode;
       $childElmt = checkbox.parentNode.parentNode;
       $doneList.insertAdjacentElement('beforeend', $childElmt);
    }
+ //  Mise à jour de la DB en AJAX
+  var xhr = new XMLHttpRequest();
+  var data = $num + "=checked";
+  xhr.open("POST", "updateAjout.php", true); 
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
+  xhr.send(data);
 }
+
+document.getElementById('newTask').focus();
+document.getElementById('newTask').select();
 

@@ -1,15 +1,23 @@
 <?php
+require 'updateAjout.php';
+require 'updateCheck.php';
+
+
 function lister($type) {
 	// Vérifier si les boites sont à checker ou pas
 	global $toDo;
 	$listHtml = '';
  	foreach ($toDo as $key => $value){
  		$checked = "";
+ 		$deadline = "";
  		if ($value['progress'] == 'done'){
  			$checked = "checked";
  		}
+ 		if ($value['progress'] == 'todo'){
+ 			$deadline = $value['deadline'];
+ 		}
  		if ($value['progress'] == $type){
-		$item = "<li draggable='true' ><div  class='box-item'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ." onchange='handleCheckbox(this);'> " . $value['task'] . "</label></div></li> ";
+		$item = "<li draggable='true'><div  class='box-item ". $deadline. "'><label for='".$value['ID']."'><input name='".$value['ID']."'type='checkbox' id='" . $value['ID'] . "' value='checked'". $checked ." onchange='handleCheckbox(this);'> " . $value['task'] . "</label></div></li> ";
 		$listHtml = $listHtml .	 $item;
 		$checked = '';
 		}
@@ -37,20 +45,20 @@ function lister($type) {
 		}
 		// Update suite à un ajout
 		if(isset($_POST['ajout'])){
-			$req = $dbb->prepare("INSERT INTO todos(task, progress) VALUES(?, 'todo')");	
-			$req->execute(array($_POST['tacheAjout']));
+			$req = $dbb->prepare("INSERT INTO todos(task, progress, deadline) VALUES(?, 'todo', ?)");	
+			$req->execute(array($_POST['tacheAjout'], $_POST['deadline']));
 			$req->closeCursor();
 		}
-		// Update suite à une tache réalisée
-		if(isset($_POST['done'])){
-			foreach ($_POST as $keyPost => $valuePost) {
-			 	if($valuePost == 'checked'){
-				$req = $dbb->prepare("UPDATE todos SET progress = 'done' WHERE ID = ? ");	
-				$req->execute(array($keyPost));
-				$req->closeCursor();
-				}
-			}
-		}
+		// Update suite à une tache réalisée --->>> déplacée en fichier externe pour AJAX
+		// if(isset($_POST['done'])){
+		// 	foreach ($_POST as $keyPost => $valuePost) {
+		// 	 	if($valuePost == 'checked'){
+		// 		$req = $dbb->prepare("UPDATE todos SET progress = 'done' WHERE ID = ? ");	
+		// 		$req->execute(array($keyPost));
+		// 		$req->closeCursor();
+		// 		}
+		// 	}
+		// }
 		// Récupérer la liste et faire le tri
 		$req = $dbb->query('SELECT * FROM todos');
 		$toDo = [];
@@ -67,15 +75,22 @@ function lister($type) {
 					<?php
 					echo(lister('todo'));
 					?>
-					<input type="submit" name="done" value="done">
 				</form>
 			</div>
 
 			<div class="row">
 			<h2>Ajouter une tâche</h2>
 				<form method='post'>
-					Tâche à effectuer:
-					<input type="text" name="tacheAjout">
+				<label>
+					<input type='radio' id='deadline' name='deadline' value='tomorrow'>Pour demain
+				</label>
+				<label>
+					<input type='radio' id='deadline' name='deadline' value='urgent'>Super urgent
+				</label>
+				<label>
+					<input type='radio' id='deadline' name='deadline' value='late'>Déjà en retard
+				</label>
+					<input type="text" id="newTask" name="tacheAjout">
 					<input type="submit" name="ajout" value="ajout">
 				</form>
 			</div>
